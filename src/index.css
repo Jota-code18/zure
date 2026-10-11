@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --ouro: #c9a86a;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+input,
+select,
+textarea {
+  color: #fff;
+  caret-color: var(--ouro);
+  background-color: #141414;
+}
+
+/* iPhone dá zoom em campos com fonte < 16px: no celular, todo campo fica com 16px. */
+@media (max-width: 1023px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #737373;
+  opacity: 1;
+}
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+  color-scheme: dark;
+}
+select option {
+  background: #141414;
+  color: #fff;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px #141414 inset !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+button:not(:disabled),
+label[for],
+a {
+  cursor: pointer;
+}
+
+/* Foco visível para quem usa teclado no computador. */
+:focus-visible {
+  outline: 2px solid var(--ouro);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 10px;
+}
+
+/* Faixas com rolagem lateral (chips) sem barra visível. */
+.sem-barra {
+  scrollbar-width: none;
+}
+.sem-barra::-webkit-scrollbar {
+  display: none;
+}
+
+/* Skeleton: brilho que passa da esquerda para a direita (só transform). */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: brilho 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes brilho {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Progresso indeterminado (salvando / enviando foto). Linear: é progresso. */
+.barra-indeterminada {
+  animation: indeterminada 1.1s linear infinite;
+}
+@keyframes indeterminada {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+/* Movimento reduzido: sem brilho, sem barras correndo, transições instantâneas. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton::after {
+    display: none;
+  }
+  .barra-indeterminada {
+    width: 100%;
+    opacity: 0.6;
+    transform: none;
+  }
+}

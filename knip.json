@@ -1,0 +1,10 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["e2e/**/*.spec.ts", "src/**/*.test.{ts,tsx}", "supabase/testes/*.mjs"],
+  "project": ["src/**/*.{ts,tsx}", "e2e/**/*.ts"],
+  "ignore": [],
+  "vite": true,
+  "vitest": true,
+  "playwright": true,
+  "ignoreDependencies": ["tailwindcss"]
+}

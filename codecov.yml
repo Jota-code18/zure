@@ -1,0 +1,15 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 2%
+    patch:
+      default:
+        target: 70%
+comment:
+  layout: "diff, flags, files"
+ignore:
+  - "src/test"
+  - "e2e"
+  - "src/main.tsx"

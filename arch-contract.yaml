@@ -1,0 +1,54 @@
+version: 1
+project:
+  name: zure-barbearia
+
+# Camadas (de dentro para fora):
+#   domain        regras de negócio puras (comissão, metas, carteira, DRE). Sem React, sem rede.
+#   observability telemetria plugável (Sentry, Datadog, New Relic, OpenTelemetry).
+#   ui            componentes visuais e motion. Não sabe de banco nem de telas.
+#   data          Supabase, backend de memória (demo/testes), estado compartilhado.
+#   features      telas (Lançar, Metas, Gestão...). Usam domain + ui + data.
+#   app           casca: providers, autenticação, navegação.
+layers:
+  - name: domain
+    match: ["src/domain/**/*.ts"]
+  - name: observability
+    match: ["src/observability/**/*.ts"]
+  - name: ui
+    match: ["src/ui/**/*.{ts,tsx}"]
+  - name: data
+    match: ["src/data/**/*.{ts,tsx}"]
+  - name: features
+    match: ["src/features/**/*.{ts,tsx}"]
+  - name: app
+    match: ["src/app/**/*.{ts,tsx}", "src/main.tsx"]
+
+ruleset:
+  domain: { mayDependOn: [] }
+  observability: { mayDependOn: [] }
+  ui: { mayDependOn: [domain] }
+  data: { mayDependOn: [domain, observability] }
+  features: { mayDependOn: [domain, ui, data, observability] }
+  app: { mayDependOn: [domain, ui, data, features, observability] }
+
+expectations:
+  - name: dominio-sem-frameworks
+    expect: { layer: domain }
+    to:
+      notDependOnPackages: ["react", "react-dom", "framer-motion", "recharts", "lucide-react", "@supabase/*", "xlsx", "@sentry/*", "@datadog/*", "@newrelic/*", "@opentelemetry/*"]
+  - name: ui-sem-banco
+    expect: { layer: ui }
+    to:
+      notDependOnPackages: ["@supabase/*"]
+  - name: telas-nao-falam-direto-com-supabase
+    expect: { layer: features }
+    to:
+      notDependOnPackages: ["@supabase/*"]
+  - name: sdks-de-observabilidade-isolados
+    expect: { layer: features }
+    to:
+      notDependOnPackages: ["@sentry/*", "@datadog/*", "@newrelic/*", "@opentelemetry/*"]
+
+paths:
+  include: ["src"]
+  exclude: ["**/*.test.ts", "**/*.test.tsx", "src/test/**"]
