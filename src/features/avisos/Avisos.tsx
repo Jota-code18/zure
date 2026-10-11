@@ -101,8 +101,8 @@ export function Resumo19() {
   }, [users, todas, config, clientes]);
 
   return (
-    <Aparecer show={!!texto} className="fixed top-3 left-3 right-3 z-[75] max-w-md mx-auto lg:left-auto lg:right-6 lg:top-6">
-      <div className="rounded-2xl p-4 shadow-2xl" style={{ background: "#1a1610", border: `1px solid ${GOLD}` }} role="status">
+    <Aparecer show={!!texto} className="mb-4">
+      <div className="rounded-2xl p-4" style={{ background: "#1a1610", border: `1px solid ${GOLD}` }} role="status">
         <div className="flex items-center gap-2 text-xs font-bold mb-1" style={{ color: GOLD }}>
           <Bell size={14} /> RESUMO DO DIA · 19h
         </div>

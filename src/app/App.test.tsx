@@ -1,6 +1,6 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { criarBackendMemoria } from "../data/backend-memoria.ts";
 import { USUARIOS_DEMO } from "../domain/demo.ts";
 import App from "./App.tsx";
@@ -98,5 +98,17 @@ describe("app como dono", () => {
     await user.click(screen.getByRole("tab", { name: "Histórico" }));
     expect(await screen.findByText("Correção")).toBeInTheDocument();
     expect(screen.getByText(/mudou: forma de pagamento$/)).toBeInTheDocument();
+  });
+
+  it("às 19h mostra o resumo do dia dentro da página, sem cobrir a navegação", async () => {
+    vi.setSystemTime(new Date(2026, 9, 7, 19, 30));
+    try {
+      montar(DONO.id);
+      const resumo = await screen.findByText(/RESUMO DO DIA/);
+      expect(resumo.closest("main")).not.toBeNull();
+      expect(screen.getByText(/^Hoje: R\$/)).toBeInTheDocument();
+    } finally {
+      vi.setSystemTime(new Date(2026, 9, 7, 15, 0));
+    }
   });
 });

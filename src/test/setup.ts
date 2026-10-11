@@ -30,5 +30,9 @@ class RO {
 window.ResizeObserver = window.ResizeObserver || (RO as unknown as typeof ResizeObserver);
 if (!URL.createObjectURL) URL.createObjectURL = () => "blob:teste";
 
+// Relógio fixo numa quarta às 15h: nada que depende de horário (resumo das 19h, ponto) muda o teste.
+vi.useFakeTimers({ toFake: ["Date"], shouldAdvanceTime: true });
+vi.setSystemTime(new Date(2026, 9, 7, 15, 0));
+
 // Nos testes as animações terminam na hora (o comportamento é o mesmo, sem esperar transições).
 MotionGlobalConfig.skipAnimations = true;

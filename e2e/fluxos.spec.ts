@@ -1,5 +1,21 @@
 import { expect, type Page, test } from "@playwright/test";
 
+// Qualquer erro no console do navegador (ou exceção não tratada) reprova o teste.
+const errosDoConsole = new WeakMap<Page, string[]>();
+test.beforeEach(async ({ page }) => {
+  // Horário fixo (quarta, 15h em São Paulo) para o teste não depender da hora em que roda.
+  await page.clock.install({ time: new Date("2026-10-07T15:00:00-03:00") });
+  const erros: string[] = [];
+  errosDoConsole.set(page, erros);
+  page.on("console", (m) => {
+    if (m.type() === "error") erros.push(m.text());
+  });
+  page.on("pageerror", (e) => erros.push(e.message));
+});
+test.afterEach(({ page }) => {
+  expect(errosDoConsole.get(page), "erros no console do navegador").toEqual([]);
+});
+
 async function entrarDemo(page: Page, como: "dono" | "barbeiro") {
   await page.goto("/");
   await page.getByRole("button", { name: `Como ${como}` }).click();
