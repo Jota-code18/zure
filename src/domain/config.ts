@@ -1,5 +1,6 @@
 /* Configuração da barbearia: valores padrão e montagem do objeto `config` usado pelas telas. */
 
+// Stryker disable all: dados iniciais (catálogo e contas), não são regras de negócio.
 export const SERVICOS_INICIAIS = [
   { id: "corte", nome: "CORTE", preco: 65 },
   { id: "barba", nome: "BARBA", preco: 35 },
@@ -50,6 +51,7 @@ const CONFIG_PRIVADA_PADRAO = {
   googleLink: "",
 };
 
+// Stryker restore all
 const CHAVES_PRIVADAS = Object.keys(CONFIG_PRIVADA_PADRAO);
 
 /** Separa um patch de configuração entre a parte pública e a privada. */

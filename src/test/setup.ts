@@ -5,7 +5,7 @@ import { afterEach, vi } from "vitest";
 
 afterEach(() => cleanup());
 // Telas carregadas sob demanda (lazy) podem levar alguns segundos no jsdom.
-configure({ asyncUtilTimeout: 10000 });
+configure({ asyncUtilTimeout: 15000 });
 
 // jsdom não implementa estes recursos de navegador usados pela interface.
 if (!window.matchMedia)

@@ -7,6 +7,7 @@ export const corNivel = (i) => COR_NIVEIS[Math.min(i, COR_NIVEIS.length - 1)];
 export function planoPadrao(precoCorte) {
   const f = (precoCorte || 60) / 60;
   const r = (v) => Math.round((v * f) / 5) * 5;
+  // Stryker disable next-line StringLiteral: nomes e textos dos níveis são conteúdo, não regra.
   return {
     tiers: [
       { id: "n1", nome: "VERMELHO", minFat: 0, comissao: 40, bonus: 0, premio: "Alerta! 2º mês seguido aqui = desligamento" },
