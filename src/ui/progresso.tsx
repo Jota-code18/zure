@@ -37,7 +37,7 @@ export function BarraMeta({ rotulo, atual, meta, dinheiro = false }: { rotulo: s
   else texto = `${falta === 1 ? "Falta" : "Faltam"} ${falta} ${falta === 1 ? "cliente" : "clientes"}`;
   return (
     <div className="mb-3 last:mb-0">
-      <div className="flex justify-between items-baseline gap-2 text-xs">
+      <div className="flex flex-wrap justify-between items-baseline gap-x-2 text-xs">
         <span className="text-neutral-300 font-semibold">{rotulo}</span>
         <span className="font-black whitespace-nowrap" style={{ color: ok ? VERDE : "#fff" }}>
           {fmt(atual)}

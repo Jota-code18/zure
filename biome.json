@@ -93,6 +93,16 @@
           }
         }
       }
+    },
+    {
+      "includes": ["**/*.test.ts", "**/*.test.tsx", "e2e/**", "src/test/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
     }
   ]
 }

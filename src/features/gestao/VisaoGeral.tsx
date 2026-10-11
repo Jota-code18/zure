@@ -33,7 +33,7 @@ function Kpi({ rotulo, valor, sub = "", cor = undefined }: { rotulo: string; val
   return (
     <Card>
       <div className="text-[11px] text-neutral-500">{rotulo}</div>
-      <div className="text-xl font-black tabular-nums" style={{ color: cor }}>
+      <div className="numero font-black" style={{ color: cor }}>
         {valor}
       </div>
       {sub && <div className="text-[10px] text-neutral-500">{sub}</div>}
@@ -178,17 +178,17 @@ export default function VisaoGeral() {
           <div className="grid grid-cols-3 gap-3 mb-3">
             <div>
               <div className="text-[11px] text-neutral-500">Faturando</div>
-              <div className="text-lg sm:text-2xl font-black tabular-nums" style={{ color: GOLD }}>
+              <div className="numero-grande font-black" style={{ color: GOLD }}>
                 {brl(dHoje.fat)}
               </div>
             </div>
             <div>
               <div className="text-[11px] text-neutral-500">Comissões</div>
-              <div className="text-lg sm:text-2xl font-black tabular-nums">{brl(dHoje.comissoes)}</div>
+              <div className="numero-grande font-black">{brl(dHoje.comissoes)}</div>
             </div>
             <div>
               <div className="text-[11px] text-neutral-500">Sobra pra casa</div>
-              <div className="text-lg sm:text-2xl font-black text-green-400 tabular-nums">{brl(dHoje.porUser.reduce((a, x) => a + x.c.casa, 0))}</div>
+              <div className="numero-grande font-black text-green-400">{brl(dHoje.porUser.reduce((a, x) => a + x.c.casa, 0))}</div>
             </div>
           </div>
           <div className="grid lg:grid-cols-3 lg:gap-x-6">
@@ -243,7 +243,7 @@ export default function VisaoGeral() {
           <Kpi rotulo="Lucro líquido" valor={brl(d.lucro)} sub={`margem ${d.margem.toFixed(1)}%`} cor={d.lucro >= 0 ? VERDE : "#ef4444"} />
           <Card>
             <div className="text-[11px] text-neutral-500">Vs período anterior</div>
-            <div className="flex items-center gap-1 text-xl font-black" style={{ color: cresc >= 0 ? VERDE : "#ef4444" }}>
+            <div className="numero flex items-center gap-1 font-black" style={{ color: cresc >= 0 ? VERDE : "#ef4444" }}>
               {cresc >= 0 ? <TrendingUp size={18} /> : <TrendingDown size={18} />}
               {cresc >= 0 ? "+" : ""}
               {cresc.toFixed(0)}%

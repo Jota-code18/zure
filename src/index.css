@@ -78,6 +78,26 @@ a {
   border-radius: 10px;
 }
 
+/* Responsivo: item de grade pode encolher (senão um número grande empurra a página para o lado)
+   e, em último caso, o texto quebra em vez de estourar a tela. */
+.grid > * {
+  min-width: 0;
+}
+body {
+  overflow-wrap: anywhere;
+}
+/* Números de destaque acompanham a largura da tela (celular pequeno → desktop). */
+.numero {
+  font-size: clamp(1rem, 0.72rem + 1.4vw, 1.25rem);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.numero-grande {
+  font-size: clamp(1rem, 0.6rem + 2.1vw, 1.5rem);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Faixas com rolagem lateral (chips) sem barra visível. */
 .sem-barra {
   scrollbar-width: none;

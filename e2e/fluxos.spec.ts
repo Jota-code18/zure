@@ -55,7 +55,7 @@ test("barbeiro: sem gestão, sem ranking e sem lucro da casa", async ({ page }) 
   await expect(page.getByText(/Lucro deixado pra casa/)).toHaveCount(0);
 });
 
-test("nenhuma tela tem rolagem lateral", async ({ page }) => {
+async function percorrerTelas(page: Page) {
   await entrarDemo(page, "dono");
   for (const aba of ["Lançar", "Metas", "Gestão", "Clientes", "Ajustes"]) {
     await menu(page).getByText(aba, { exact: true }).click();
@@ -68,6 +68,28 @@ test("nenhuma tela tem rolagem lateral", async ({ page }) => {
     await page.waitForTimeout(400);
     await semRolagemLateral(page, `Gestão › ${sub}`);
   }
+  await entrarDemo(page, "barbeiro");
+  for (const aba of ["Lançar", "Metas", "Meu dia"]) {
+    await menu(page).getByText(aba, { exact: true }).click();
+    await page.waitForTimeout(400);
+    await semRolagemLateral(page, `barbeiro › ${aba}`);
+  }
+}
+
+test("nenhuma tela tem rolagem lateral", async ({ page }) => {
+  await percorrerTelas(page);
+});
+
+test("nenhuma tela tem rolagem lateral com fonte larga (pior caso de Android/Linux)", async ({ page }) => {
+  await page.addInitScript(() => {
+    const css = "*{font-family:Verdana,'DejaVu Sans',sans-serif!important;letter-spacing:.02em!important}";
+    document.addEventListener("DOMContentLoaded", () => {
+      const s = document.createElement("style");
+      s.textContent = css;
+      document.head.appendChild(s);
+    });
+  });
+  await percorrerTelas(page);
 });
 
 test("funciona com movimento reduzido (acessibilidade)", async ({ page }) => {

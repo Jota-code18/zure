@@ -474,7 +474,7 @@ export default function MetasTab() {
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3">
                 <div>
                   <div className="text-[11px] text-neutral-500">Faturamento</div>
-                  <div className="text-xl font-black">{brl(c.fat)}</div>
+                  <div className="numero font-black">{brl(c.fat)}</div>
                   <div className="text-[10px] font-bold" style={{ color: cresc >= 0 ? VERDE : "#ef4444" }}>
                     {cresc >= 0 ? "▲ +" : "▼ "}
                     {cresc.toFixed(0)}% vs anterior
@@ -482,24 +482,24 @@ export default function MetasTab() {
                 </div>
                 <div>
                   <div className="text-[11px] text-neutral-500">Clientes atendidos</div>
-                  <div className="text-xl font-black">{c.clientes}</div>
+                  <div className="numero font-black">{c.clientes}</div>
                   <div className="text-[10px] text-neutral-500">{c.cortes} cortes</div>
                 </div>
                 <div>
                   <div className="text-[11px] text-neutral-500">Ticket médio</div>
-                  <div className="text-xl font-black" style={{ color: c.ticket > 70 ? VERDE : c.ticket < 60 && c.atend ? "#f59e0b" : "#fff" }}>
+                  <div className="numero font-black" style={{ color: c.ticket > 70 ? VERDE : c.ticket < 60 && c.atend ? "#f59e0b" : "#fff" }}>
                     {brl(c.ticket)}
                   </div>
                 </div>
                 {alvoDono ? (
                   <div>
                     <div className="text-[11px] text-neutral-500">Gorjetas</div>
-                    <div className="text-xl font-black">{brl(c.gorjeta)}</div>
+                    <div className="numero font-black">{brl(c.gorjeta)}</div>
                   </div>
                 ) : (
                   <div>
                     <div className="text-[11px] text-neutral-500">Comissão</div>
-                    <div className="text-xl font-black" style={{ color: GOLD }}>
+                    <div className="numero font-black" style={{ color: GOLD }}>
                       {brl(c.comissao)}
                     </div>
                     <div className="text-[10px] text-neutral-500">+ gorjetas {brl(c.gorjeta)}</div>
@@ -507,12 +507,12 @@ export default function MetasTab() {
                 )}
                 <div>
                   <div className="text-[11px] text-neutral-500">Produtos vendidos</div>
-                  <div className="text-xl font-black">{brl(c.fatProd)}</div>
+                  <div className="numero font-black">{brl(c.fatProd)}</div>
                 </div>
                 {ehDono && (
                   <div>
                     <div className="text-[11px] text-neutral-500">Lucro deixado pra casa</div>
-                    <div className="text-xl font-black text-green-400">{brl(c.casa)}</div>
+                    <div className="numero font-black text-green-400">{brl(c.casa)}</div>
                   </div>
                 )}
               </div>
